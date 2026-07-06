@@ -1,0 +1,19 @@
+{
+  "name": "devtinder",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [
+    "nodejs",
+    "javascript"
+  ],
+  "author": "\"Indresh Dwivedi\"",
+  "license": "ISC",
+  "description": "tinder for developers",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
