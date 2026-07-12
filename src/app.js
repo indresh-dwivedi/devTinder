@@ -1,32 +1,33 @@
 const express = require("express")
-
+require("dotenv").config({});
+const connectDB = require("./config/database")
 const app = express();
+const User = require("./models/user")
 
-app.use("/", (err, req, res, next) => {
-    if (err) {
-        // Log your error
-        res.status(500).send("something went wrong");
-    }
-});
-
-app.get("/getUserData", (req, res) => {
-    // Logic of DB call and get user data
+app.post("/signup", async (req, res) => {
+    // Creating a new instance of the User Model
+    const user = new User({
+        firstName: "Virat",
+        lastName: "Kohli",
+        emailId: "virat@gmail.com",
+        password: "virat@123"
+    });
 
     try {
-        throw new Error("acbdjsk");
-        res.send("User Data Sent");
-    } catch (error) {
-        res.status(500).send("some error contact support team");
+        await user.save();
+        res.send("User Added Successfully");
+    } catch (err) {
+        res.status(400).send("Error saving the user:" + err.message);
     }
 });
 
-app.use("/", (err, req, res, next) => {
-    if (err) {
-        // Log your error
-        res.status(500).send("something went wrong");
-    }
-});
-
-app.listen(7777, () => {
-    console.log("server is successfully listening on port 7777....")
-});
+connectDB()
+    .then(() => {
+        console.log("Database connection established...");
+        app.listen(7777, () => {
+            console.log("server is successfully listening on port 7777....")
+        });
+    })
+    .catch((err) => {
+        console.error("Database cannot be connected!!");
+    });
